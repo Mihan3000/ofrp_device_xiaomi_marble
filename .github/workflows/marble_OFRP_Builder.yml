@@ -25,15 +25,15 @@ on:
         required: true
         default: 'fox_12.1'
       DEVICE_PATH:
-        description: '输入你的设备路径'
+        description: 'DEVICE_PATH'
         required: true
         default: 'device/xiaomi/marble'
       DEVICE_NAME:
-        description: '输入你的设备代号'
+        description: 'DEVICE_NAME'
         required: true
         default: 'marble'
       BUILD_TARGET:
-        description: '选择你的构建目标'
+        description: 'BUILD_TARGET'
         required: true
         default: 'recovery'
         type: choice
@@ -42,18 +42,18 @@ on:
           - recovery
           - vendorboot
       USE_CCACHE:
-        description: '是否使用 ccache 编译'
+        description: 'USE_CCACHE'
         type: boolean
         required: true
         default: true
       OF_MAINTAINER:
-        description: '输入维护者名称'
+        description: 'OF_MAINTAINER'
         required: true
         default: 'Mihan3000'
 
 jobs:
   build:
-    name: 🏗️ 构建 OrangeFox by ${{ github.actor }}
+    name: 🏗️ OrangeFox by ${{ github.actor }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
