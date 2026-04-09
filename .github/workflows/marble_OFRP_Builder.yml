@@ -105,8 +105,8 @@ jobs:
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
           cd ${GITHUB_WORKSPACE}/OrangeFox
-          git config --global user.name "mihan3000" "${{ github.actor }}"
-          git config --global user.email "mihan4758@gmail.com" "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "mihan3000"
+          git config --global user.email "mihan4758@gmail.com"
           git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd sync
           ./orangefox_sync.sh --branch ${{ inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
