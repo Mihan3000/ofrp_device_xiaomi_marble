@@ -1,4 +1,4 @@
-name: 🦊 OrangeFox Recovery - 月度自动构建
+name: 🦊 OrangeFox Recovery
 
 # Credits to:
 # https://github.com/TeamWin
@@ -13,23 +13,23 @@ on:
 
 jobs:
   build:
-    name: 🏗️ 构建 OrangeFox Recovery
+    name: 🏗️ OrangeFox Recovery
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.TEST }}
 
       # ===== 构建参数 =====
       MANIFEST_BRANCH: 12.1
-      DEVICE_TREE: https://github.com/AviderMin/ofrp_device_xiaomi_marble
+      DEVICE_TREE: https://github.com/Mihan3000/ofrp_device_xiaomi_marble
       DEVICE_TREE_BRANCH: fox_12.1
       DEVICE_PATH: device/xiaomi/marble
       DEVICE_NAME: marble
       BUILD_TARGET: recovery
       USE_CCACHE: true
-      OF_MAINTAINER: AviderMin
+      OF_MAINTAINER: Mihan3000
 
     steps:
 
@@ -56,13 +56,13 @@ jobs:
       - name: 📥 拉取仓库内容
         uses: actions/checkout@main
 
-      - name: ⚙️ 配置 ccache
+      - name: ⚙️ ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           max-size: "2G"
           create-symlink: true
 
-      - name: ⚡ 启用并配置 ZRAM
+      - name: ⚡ ZRAM
         run: |
           sudo modprobe zram
           sudo sed -i 's/^#PERCENT=50/PERCENT=90/' /etc/default/zramswap
@@ -70,13 +70,13 @@ jobs:
           sudo systemctl restart zramswap
           zramctl
 
-      - name: 📜 同步 OrangeFox 源码清单
+      - name: 📜 OrangeFox
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
           cd ${GITHUB_WORKSPACE}/OrangeFox
 
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "mihan3000" "${{ github.actor }}"
+          git config --global user.email "mihan4758@gmail.com" "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
           git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd sync
@@ -91,13 +91,13 @@ jobs:
           cd ${DEVICE_PATH}
           echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-      - name: 🧩 注入 OrangeFox Addons
+      - name: 🧩 OrangeFox Addons
         run: |
-          git clone https://github.com/AviderMin/OrangeFox_Addons.git ${GITHUB_WORKSPACE}/addons
+          git clone https://github.com/Mihan3000/OrangeFox_Addons.git ${GITHUB_WORKSPACE}/addons
           cp ${GITHUB_WORKSPACE}/addons/* \
              ${GITHUB_WORKSPACE}/OrangeFox/fox_${MANIFEST_BRANCH}/vendor/recovery/Files/ || true
 
-      - name: 🔨 编译 OrangeFox Recovery
+      - name: 🔨 OrangeFox Recovery
         run: |
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${MANIFEST_BRANCH}
           set +e
@@ -120,7 +120,7 @@ jobs:
           make clean
           mka adbd ${BUILD_TARGET}image
 
-      - name: 📊 查看 ccache 命中统计
+      - name: 📊 ccache
         run: |
           ccache -sv
 
@@ -150,7 +150,7 @@ jobs:
             mv "$f" "$dir/${name}-${BUILD_DATE}.${ext}"
           done
 
-      - name: 🚀 发布至 GitHub Releases
+      - name: 🚀 GitHub Releases
         uses: softprops/action-gh-release@v2
         with:
           tag_name: monthly-${{ env.BUILD_DATE }}
