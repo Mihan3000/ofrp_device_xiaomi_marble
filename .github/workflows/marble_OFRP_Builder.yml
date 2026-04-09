@@ -130,7 +130,7 @@ jobs:
 
       - name: 🧩 注入 OrangeFox Addons
         run: |
-          git clone https://github.com/AviderMin/OrangeFox_Addons.git ${GITHUB_WORKSPACE}/addons
+          git clone https://github.com/Mihan3000/OrangeFox_Addons.git ${GITHUB_WORKSPACE}/addons
           cp ${GITHUB_WORKSPACE}/addons/* \
              ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/vendor/recovery/Files/ || true
 
