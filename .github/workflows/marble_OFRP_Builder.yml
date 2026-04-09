@@ -105,9 +105,9 @@ jobs:
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
           cd ${GITHUB_WORKSPACE}/OrangeFox
-          git config --global user.name "mihan3000"
-          git config --global user.email "mihan4758@gmail.com"
-          git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
+          git config --global user.name "Mihan3000" "${{ github.actor }}"
+          git config --global user.email "mihan4758@gmail.com" "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd sync
           ./orangefox_sync.sh --branch ${{ inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
 
@@ -120,7 +120,7 @@ jobs:
           git clone https://github.com/adontoo/OrangeFox-android_platform_bionic bionic
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/bootable/recovery
           git fetch https://github.com/ymdzq/OrangeFox_Recovery fox_14.1 && git cherry-pick 4aaf601 99e35fe 1ccd5e3
-
+          
       - name: 📥 克隆设备树源码
         run: |
           cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
