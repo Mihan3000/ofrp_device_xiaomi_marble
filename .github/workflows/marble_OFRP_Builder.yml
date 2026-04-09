@@ -68,7 +68,7 @@ jobs:
       - name: 🧰 安装构建依赖环境
         run: |
           sudo apt install aria2 linux-modules-extra-$(uname -r) zram-tools -y
-          git clone https://gitlab.com/OrangeFox/sync.git
+          git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd scripts
           sudo bash setup/android_build_env.sh
           cd .. && rm -rf scripts
@@ -107,7 +107,7 @@ jobs:
           cd ${GITHUB_WORKSPACE}/OrangeFox
           git config --Mihan3000 "${{ github.actor }}"
           git config --mihan4758@gmail.com "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          git clone https://gitlab.com/OrangeFox/sync.git
+          git clone https://gitlab.com/OrangeFox/sync.git -b master
           cd sync
           ./orangefox_sync.sh --branch ${{ inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
 
