@@ -21,7 +21,7 @@ on:
         required: true
         default: 'https://github.com/Mihan3000/ofrp_device_xiaomi_marble.git'
       DEVICE_TREE_BRANCH:
-        description: 'OrangeFox 设备树分支'
+        description: 'OrangeFox'
         required: true
         default: 'fox_12.1'
       DEVICE_PATH:
@@ -105,8 +105,8 @@ jobs:
         run: |
           mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
           cd ${GITHUB_WORKSPACE}/OrangeFox
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --global Mihan3000 "${{ github.actor }}"
+          git config --global mihan4758@gmail.com "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git clone https://gitlab.com/OrangeFox/sync.git
           cd sync
           ./orangefox_sync.sh --branch ${{ inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
